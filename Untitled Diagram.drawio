@@ -1,9 +1,43 @@
-<mxfile host="app.diagrams.net" modified="2024-01-31T11:39:19.865Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" version="23.0.2" etag="02EHOSq8aEo6L4Jycw13" type="github">
+<mxfile host="app.diagrams.net" modified="2024-01-31T12:15:20.186Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="1rSOWtKApfgE7MWMhntX" version="23.0.2" type="github">
   <diagram name="Page-1" id="1bbBNbhJDZBZyOIRGH9D">
-    <mxGraphModel>
+    <mxGraphModel dx="1050" dy="595" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="3rNfn36aaI_cEAq2Xamy-63" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="3rNfn36aaI_cEAq2Xamy-55" target="3rNfn36aaI_cEAq2Xamy-59">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3rNfn36aaI_cEAq2Xamy-65" value="1 : N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="3rNfn36aaI_cEAq2Xamy-63">
+          <mxGeometry x="-0.0048" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3rNfn36aaI_cEAq2Xamy-55" value="Agents" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="70" width="210" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="3rNfn36aaI_cEAq2Xamy-56" value="id (int)&lt;br&gt;&lt;br&gt;name(string)&lt;br&gt;&lt;br&gt;email(string | unique)&lt;br&gt;&lt;br&gt;password(string)&lt;br&gt;&lt;br&gt;remember_token (string | null)&lt;br&gt;&lt;br&gt;created_at(timestamp)&lt;br&gt;&lt;br&gt;updated_at (timestamp)" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;" vertex="1" parent="3rNfn36aaI_cEAq2Xamy-55">
+          <mxGeometry y="50" width="210" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="3rNfn36aaI_cEAq2Xamy-58" value="contract" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="590" y="60" width="200" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="3rNfn36aaI_cEAq2Xamy-59" value="id (int)&lt;br&gt;&lt;br&gt;contract_rate: (float)&lt;br&gt;&lt;br&gt;start_date(date)&lt;br&gt;&lt;br&gt;end_date(date)&lt;br&gt;&lt;br&gt;accommodation_id: int&lt;br&gt;&lt;br&gt;travel_agent_id: int&lt;br&gt;&lt;br&gt;created_at (timestamp)&lt;br&gt;updated_at (timestamp)" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;" vertex="1" parent="3rNfn36aaI_cEAq2Xamy-58">
+          <mxGeometry y="50" width="200" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="3rNfn36aaI_cEAq2Xamy-60" value="Accomodations" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="350" width="200" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="3rNfn36aaI_cEAq2Xamy-61" value="id (int)&lt;br&gt;&lt;br&gt;name(string)&lt;br&gt;&lt;br&gt;description(string)&lt;br&gt;&lt;br&gt;standard_rack_rate(float)&lt;br&gt;&lt;br&gt;created_at(timestamp)&lt;br&gt;&lt;br&gt;updated_at (timestamp)" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;" vertex="1" parent="3rNfn36aaI_cEAq2Xamy-60">
+          <mxGeometry y="50" width="200" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="3rNfn36aaI_cEAq2Xamy-64" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.608;entryY=1.003;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="3rNfn36aaI_cEAq2Xamy-61" target="3rNfn36aaI_cEAq2Xamy-59">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3rNfn36aaI_cEAq2Xamy-66" value="1:N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="3rNfn36aaI_cEAq2Xamy-64">
+          <mxGeometry x="0.3631" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
