@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('contracts', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->foreignId('agent_id');
+            $table->foreign('agent_id')->on('agents')->references('id')->cascadeOnDelete();
+            $table->foreignId('accommodations_id');
+            $table->foreign('accommodations_id')->on('accommodations')->references('id')->cascadeOnDelete();
         });
     }
 
