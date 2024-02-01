@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contracts', function (Blueprint $table) {
+        Schema::create('bookings', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->float('contract_rate');
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->date('check_in_date');
+            $table->date('check_out_date');
             $table->foreignId('user_id');
             $table->foreign('user_id')->on('users')->references('id')->cascadeOnDelete();
             $table->foreignId('accommodation_id');
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contracts');
+        Schema::dropIfExists('bookings');
     }
 };

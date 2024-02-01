@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAccomodationRequest;
 use App\Http\Requests\UpdateAccomodationRequest;
-use App\Models\Accomodation;
+use App\Models\Accommodation;
 
 class AccomodationController extends Controller
 {
@@ -27,7 +27,7 @@ class AccomodationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Accomodation $accomodation)
+    public function show(Accommodation $accomodation)
     {
         //
     }
@@ -35,7 +35,7 @@ class AccomodationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAccomodationRequest $request, Accomodation $accomodation)
+    public function update(UpdateAccomodationRequest $request, Accommodation $accomodation)
     {
         //
     }
@@ -43,7 +43,7 @@ class AccomodationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Accomodation $accomodation)
+    public function destroy(Accommodation $accomodation)
     {
         //
     }

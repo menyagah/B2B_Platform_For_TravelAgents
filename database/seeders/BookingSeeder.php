@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use Database\Seeders\Traits\DisableForeignKeys;
-use Database\Seeders\Traits\TruncateTable;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\Traits\DisableForeignKeys;
+use Database\Seeders\Traits\TruncateTable;
 
-class ContractSeeder extends Seeder
+class BookingSeeder extends Seeder
 {
     use TruncateTable, DisableForeignKeys;
     /**
@@ -16,8 +16,8 @@ class ContractSeeder extends Seeder
     public function run(): void
     {
         $this->disableForeignKeys();
-        $this->truncate('contracts');
-       \App\Models\Contract::factory(10)->create();
+        $this->truncate('bookings');
+        \App\Models\Booking::factory(10)->create();
         $this->enableForeignKeys();
     }
 }

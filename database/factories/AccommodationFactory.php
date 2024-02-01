@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Agent>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Accommodation>
  */
-class AgentFactory extends Factory
+class AccommodationFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,9 @@ class AgentFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+        'title'=> $this->faker->word,
+        'description'=> [],
+        'standard_rack_rate'=> $this->faker->numberBetween(0,30),
         ];
     }
 }

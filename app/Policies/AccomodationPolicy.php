@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\Accomodation;
+use App\Models\Accommodation;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
@@ -19,7 +19,7 @@ class AccomodationPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Accomodation $accomodation): bool
+    public function view(User $user, Accommodation $accomodation): bool
     {
         //
     }
@@ -35,7 +35,7 @@ class AccomodationPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Accomodation $accomodation): bool
+    public function update(User $user, Accommodation $accomodation): bool
     {
         //
     }
@@ -43,7 +43,7 @@ class AccomodationPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Accomodation $accomodation): bool
+    public function delete(User $user, Accommodation $accomodation): bool
     {
         //
     }
@@ -51,7 +51,7 @@ class AccomodationPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Accomodation $accomodation): bool
+    public function restore(User $user, Accommodation $accomodation): bool
     {
         //
     }
@@ -59,7 +59,7 @@ class AccomodationPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Accomodation $accomodation): bool
+    public function forceDelete(User $user, Accommodation $accomodation): bool
     {
         //
     }
