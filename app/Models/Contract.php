@@ -13,7 +13,7 @@ class Contract extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    public function accommodation(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function accommodations(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Accommodation::class, 'accommodation_id');
     }

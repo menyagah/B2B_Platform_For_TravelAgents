@@ -21,7 +21,9 @@ class BookingFactory extends Factory
             'check_in_date' => Carbon::instance($this->faker->dateTimeBetween('now')),
             'check_out_date' => Carbon::instance($this->faker->dateTimeBetween('now', '+1 year')),
             'accommodation_id'=> 1,
-            'user_id'=> 3
+            'user_id'=> 3,
+            'contract_id'=>4,
+            'contract_rate' => 100.00,
         ];
     }
 }

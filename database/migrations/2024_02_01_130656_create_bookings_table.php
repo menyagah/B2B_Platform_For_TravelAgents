@@ -22,6 +22,7 @@ return new class extends Migration
             $table->foreign('accommodation_id')->on('accommodations')->references('id')->cascadeOnDelete();
             $table->foreignId('contract_id');
             $table->foreign('contract_id')->on('contracts')->references('id')->cascadeOnDelete();
+            $table->float('contract_rate');
 
         });
     }
