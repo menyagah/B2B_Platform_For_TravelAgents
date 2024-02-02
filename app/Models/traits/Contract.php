@@ -8,4 +8,9 @@ trait Contract
     {
         return $this->hasMany(\App\Models\Contract::class, 'accommodation_id');
     }
+
+    public function getTitleUpperCaseAttribute(): string
+    {
+        return strtoupper($this->title);
+    }
 }
