@@ -13,4 +13,9 @@ trait Contract
     {
         return strtoupper($this->title);
     }
+
+    public function setTitleAttribute($value): void
+    {
+        $this->attributes['title'] = strtolower($value);
+    }
 }
