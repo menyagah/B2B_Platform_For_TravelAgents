@@ -20,9 +20,10 @@ return new class extends Migration
             $table->foreign('user_id')->on('users')->references('id')->cascadeOnDelete();
             $table->foreignId('accommodation_id');
             $table->foreign('accommodation_id')->on('accommodations')->references('id')->cascadeOnDelete();
+            $table->float('standard_rack_rate')->nullable();
             $table->foreignId('contract_id');
             $table->foreign('contract_id')->on('contracts')->references('id')->cascadeOnDelete();
-            $table->float('contract_rate');
+            $table->float('contract_rate')->nullable();
 
         });
     }

@@ -17,5 +17,8 @@ class FactoryHelper
             return $attrId = rand(1, $count);
         }
     }
+    public static function getContractOrStandardRate()
+    {
 
+    }
 }
