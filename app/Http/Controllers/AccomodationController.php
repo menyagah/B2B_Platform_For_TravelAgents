@@ -29,7 +29,7 @@ class AccomodationController extends Controller
      */
     public function show(Accommodation $accomodation)
     {
-        //
+
     }
 
     /**

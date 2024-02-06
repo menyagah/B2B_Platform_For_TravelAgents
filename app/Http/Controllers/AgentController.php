@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreAgentRequest;
-use App\Http\Requests\UpdateAgentRequest;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\Booking;
 
 class AgentController extends Controller
@@ -19,7 +19,7 @@ class AgentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAgentRequest $request)
+    public function store(StoreUserRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class AgentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAgentRequest $request, Booking $agent)
+    public function update(UpdateUserRequest $request, Booking $agent)
     {
         //
     }
