@@ -16,15 +16,12 @@ use Illuminate\Support\Facades\Route;
 
 //Route::apiResource('users', \App\Http\Controllers\UserController::class);
 
-Route::get('/users', [\App\Http\Controllers\UserController::class, 'index']);
+Route::prefix('v1')
+    ->group(function (){
+        require __DIR__ . '/api/v1/users.php';
+    });
 
-Route::get('/users/{user}', [\App\Http\Controllers\UserController::class, 'show']);
 
-Route::post('/users', [\App\Http\Controllers\UserController::class, 'store']);
-
-Route::patch('/users/{user}', [\App\Http\Controllers\UserController::class, 'update']);
-
-Route::delete('/users/{user}', [\App\Http\Controllers\UserController::class, 'destroy']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
