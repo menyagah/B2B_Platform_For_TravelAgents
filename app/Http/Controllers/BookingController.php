@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreContractRequest;
-use App\Http\Requests\UpdateContractRequest;
-use App\Models\Contract;
+use App\Http\Requests\StoreBookingRequest;
+use App\Http\Requests\UpdateBookingRequest;
+use App\Models\Booking;
 
-class ContractController extends Controller
+class BookingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,34 +14,34 @@ class ContractController extends Controller
     public function index()
     {
         return new \Illuminate\Http\JsonResponse([
-            'data' => 'contracts'
+            'data' => 'bookings'
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreContractRequest $request)
+    public function store(StoreBookingRequest $request)
     {
         return new \Illuminate\Http\JsonResponse([
-            'data' => 'posted'
+        'data' => 'posted'
         ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Contract $contract)
+    public function show(Booking $booking)
     {
         return new \Illuminate\Http\JsonResponse([
-            'data' => $contract
+            'data' => $booking
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateContractRequest $request, Contract $contract)
+    public function update(UpdateBookingRequest $request, Booking $booking)
     {
         return new \Illuminate\Http\JsonResponse([
             'data' => 'updated'
@@ -51,7 +51,7 @@ class ContractController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Contract $contract)
+    public function destroy(Booking $booking)
     {
         return new \Illuminate\Http\JsonResponse([
             'data' => 'deleted'

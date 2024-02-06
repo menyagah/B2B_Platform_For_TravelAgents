@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreContractRequest;
-use App\Http\Requests\UpdateContractRequest;
-use App\Models\Contract;
+use App\Http\Requests\StoreAccomodationRequest;
+use App\Http\Requests\UpdateAccomodationRequest;
+use App\Models\Accommodation;
 
-class ContractController extends Controller
+class AccommodationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,14 +14,14 @@ class ContractController extends Controller
     public function index()
     {
         return new \Illuminate\Http\JsonResponse([
-            'data' => 'contracts'
+            'data' => 'accommodations'
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreContractRequest $request)
+    public function store(StoreAccomodationRequest $request)
     {
         return new \Illuminate\Http\JsonResponse([
             'data' => 'posted'
@@ -31,17 +31,17 @@ class ContractController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Contract $contract)
+    public function show(Accommodation $accommodation)
     {
         return new \Illuminate\Http\JsonResponse([
-            'data' => $contract
+            'data' => $accommodation
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateContractRequest $request, Contract $contract)
+    public function update(UpdateAccomodationRequest $request, Accommodation $accommodation)
     {
         return new \Illuminate\Http\JsonResponse([
             'data' => 'updated'
@@ -51,7 +51,7 @@ class ContractController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Contract $contract)
+    public function destroy(Accommodation $accommodation)
     {
         return new \Illuminate\Http\JsonResponse([
             'data' => 'deleted'
