@@ -18,11 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')
     ->group(function (){
-
-        require __DIR__ . '/api/v1/users.php';
-        require  __DIR__ . '/api/v1/accommodations.php';
-        require __DIR__ . '/api/v1/bookings.php';
-        require __DIR__ . '/api/v1/contracts.php';
+        \App\Helpers\Routes\RouteHelper::includeRouteFiles(__DIR__ . '/api/v1');
     });
 
 
