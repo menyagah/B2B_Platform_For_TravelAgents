@@ -22,7 +22,8 @@ class ContractController extends Controller
      */
     public function index(Request $request)
     {
-        $contracts = Contract::query()->get();
+        $pageSize = $request->page_size ?? 20;
+        $contracts = Contract::query()->paginate($pageSize);
         return ContractResource::collection($contracts);
 
 //        $userId = $request->user()->id;

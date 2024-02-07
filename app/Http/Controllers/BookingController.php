@@ -21,9 +21,10 @@ class BookingController extends Controller
      *
      * @return ResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
-        $bookings= Booking::query()->get();
+        $pageSize = $request->page_size ?? 20;
+        $bookings= Booking::query()->paginate($pageSize);
         return BookingResource::collection($bookings);
     }
 

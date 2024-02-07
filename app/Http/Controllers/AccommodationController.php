@@ -18,9 +18,10 @@ class AccommodationController extends Controller
      *
      * @return ResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
-        $accommodations = Accommodation::query()->get();
+        $pageSize = $request->page_size ?? 20;
+        $accommodations = Accommodation::query()->paginate($pageSize);
         return AccommodationResource::collection($accommodations);
     }
 
