@@ -14,6 +14,13 @@ class AccommodationResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'description' => $this->description,
+            'standard_rack_rate' => $this->standard_rack_rate,
+            'created_at'=> $this->created_at,
+            'updated_at'=> $this->updated_at
+        ];
     }
 }
