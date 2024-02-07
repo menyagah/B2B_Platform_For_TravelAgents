@@ -32,6 +32,9 @@ class ContractController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return ContractResource
      */
     public function store(Request $request)
     {
@@ -53,7 +56,7 @@ class ContractController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Contract $contract
+     * @param Contract $contract
      * @return ContractResource
      */
     public function show(Contract $contract)
@@ -65,7 +68,7 @@ class ContractController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Contract $contract
+     * @param Contract $contract
      * @return ContractResource | JsonResponse
      */
     public function update(UpdateContractRequest $request, Contract $contract)
@@ -87,7 +90,7 @@ class ContractController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Contract $contract
+     * @param Contract $contract
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Contract $contract)
