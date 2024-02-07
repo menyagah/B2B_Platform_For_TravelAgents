@@ -8,32 +8,43 @@ use App\Models\Accommodation;
 use App\Models\Contract;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ContractController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $contracts = Contract::query()->get();
         return new JsonResponse([
             'data'=> $contracts
         ]);
+
+//        $userId = $request->user()->id;
+//        $contracts = Contract::where('user_id', $userId)->get();
+//        return response()->json($contracts);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreContractRequest $request)
+    public function store(Request $request)
     {
-        $created = Accommodation::query()->create([
-            'contract_rate'=> $request->contract_rate,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-            'accommodation_id'=> $request->accommodation_id,
-            'user_id'=> $request->user_id,
-        ]);
+        $created = DB::transaction(function () use ($request){
+            $created = Contract::query()->create([
+                'contract_rate'=> $request->contract_rate,
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date,
+                'accommodation_id'=> $request->accommodation_id,
+                'user_id'=> $request->user_id,
+            ]);
+
+            return $created;
+        });
+
         return new JsonResponse([
             'data' => $created
         ]);

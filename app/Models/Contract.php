@@ -9,6 +9,14 @@ class Contract extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'contract_rate',
+        'start_date',
+        'end_date',
+        'accommodation_id',
+        'user_id',
+    ];
+
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');

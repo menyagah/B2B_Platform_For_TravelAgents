@@ -6,6 +6,7 @@ use App\Http\Requests\StoreBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
 use App\Models\Accommodation;
 use App\Models\Booking;
+use App\Models\Contract;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 
