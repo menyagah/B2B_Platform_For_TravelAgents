@@ -4,58 +4,72 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
+use App\Http\Resources\BookingResource;
 use App\Models\Accommodation;
 use App\Models\Booking;
 use App\Models\Contract;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Facades\DB;
 
 class BookingController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return ResourceCollection
      */
     public function index()
     {
         $bookings= Booking::query()->get();
-        return new JsonResponse([
-            'data'=> $bookings
-        ]);
+        return BookingResource::collection($bookings);
     }
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @return BookingResource
      */
-    public function store(StoreBookingRequest $request)
+    public function store(Request $request)
     {
-        $created = Booking::query()->create([
-            'check_in_date' => $request->check_in_date,
-            'check_out_date' => $request->check_out_date,
-            'accommodation_id'=> $request->accommodation_id,
-            'user_id'=> $request->user_id,
-            'contract_id'=>$request->contract_id,
-            'contract_rate' => $request->contract_rate,
-            'standard_rack_rate'=> $request->standard_rack_rate
-        ]);
-        return new JsonResponse([
-            'data' => $created
-        ]);
+        $created = DB::transaction(function () use ($request){
+            $created = Booking::query()->create([
+                'check_in_date' => $request->check_in_date,
+                'check_out_date' => $request->check_out_date,
+                'accommodation_id'=> $request->accommodation_id,
+                'user_id'=> $request->user_id,
+                'contract_id'=>$request->contract_id,
+                'contract_rate' => $request->contract_rate,
+                'standard_rack_rate'=> $request->standard_rack_rate
+            ]);
+            return $created;
+        });
+
+        return new BookingResource($created);
     }
 
     /**
      * Display the specified resource.
+     *
+     * @param Booking $booking
+     * @return BookingResource
      */
     public function show(Booking $booking)
     {
-        return new \Illuminate\Http\JsonResponse([
-            'data' => $booking
-        ]);
+        return new BookingResource($booking);
     }
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param Booking $booking
+     * @return BookingResource | JsonResponse
      */
-    public function update(UpdateBookingRequest $request, Booking $booking)
+    public function update(Request $request, Booking $booking)
     {
         $updated = $booking->update([
             'check_in_date' => $request->check_in_date ?? $booking->check_in_date,
@@ -68,13 +82,14 @@ class BookingController extends Controller
                 ]
             ], status: 400);
         }
-        return new JsonResponse([
-            'data' => $updated
-        ]);
+        return new BookingResource($updated);
     }
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param Booking $booking
+     * @return JsonResponse
      */
     public function destroy(Booking $booking)
     {
