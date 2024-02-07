@@ -4,24 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreContractRequest;
 use App\Http\Requests\UpdateContractRequest;
+use App\Http\Resources\ContractResource;
 use App\Models\Accommodation;
 use App\Models\Contract;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Facades\DB;
 
 class ContractController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return ResourceCollection
      */
     public function index(Request $request)
     {
         $contracts = Contract::query()->get();
-        return new JsonResponse([
-            'data'=> $contracts
-        ]);
+        return ContractResource::collection($contracts);
 
 //        $userId = $request->user()->id;
 //        $contracts = Contract::where('user_id', $userId)->get();
@@ -45,23 +47,26 @@ class ContractController extends Controller
             return $created;
         });
 
-        return new JsonResponse([
-            'data' => $created
-        ]);
+        return new ContractResource($created);
     }
 
     /**
      * Display the specified resource.
+     *
+     * @param \App\Models\Contract $contract
+     * @return ContractResource
      */
     public function show(Contract $contract)
     {
-        return new \Illuminate\Http\JsonResponse([
-            'data' => $contract
-        ]);
+        return new ContractResource($contract);
     }
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Contract $contract
+     * @return ContractResource | JsonResponse
      */
     public function update(UpdateContractRequest $request, Contract $contract)
     {
@@ -72,18 +77,18 @@ class ContractController extends Controller
         ]);
         if(!$updated){
             return new JsonResponse([
-                'errors' => [
+                'errors' =>
                     'Failed to update model.'
-                ]
             ], status: 400);
         }
-        return new JsonResponse([
-            'data' => $updated
-        ]);
+        return new ContractResource($contract);
     }
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param \App\Models\Contract $contract
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Contract $contract)
     {
