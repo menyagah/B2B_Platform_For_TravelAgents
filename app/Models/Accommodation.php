@@ -10,6 +10,12 @@ class Accommodation extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'description',
+        'standard_rack_rate'
+    ];
+
     protected $casts = [
         'description' => 'array'
     ];

@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
+use App\Models\Accommodation;
 use App\Models\Booking;
+use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 
 class BookingController extends Controller
 {
@@ -13,8 +16,9 @@ class BookingController extends Controller
      */
     public function index()
     {
-        return new \Illuminate\Http\JsonResponse([
-            'data' => 'bookings'
+        $bookings= Booking::query()->get();
+        return new JsonResponse([
+            'data'=> $bookings
         ]);
     }
 
@@ -23,8 +27,17 @@ class BookingController extends Controller
      */
     public function store(StoreBookingRequest $request)
     {
-        return new \Illuminate\Http\JsonResponse([
-        'data' => 'posted'
+        $created = Booking::query()->create([
+            'check_in_date' => $request->check_in_date,
+            'check_out_date' => $request->check_out_date,
+            'accommodation_id'=> $request->accommodation_id,
+            'user_id'=> $request->user_id,
+            'contract_id'=>$request->contract_id,
+            'contract_rate' => $request->contract_rate,
+            'standard_rack_rate'=> $request->standard_rack_rate
+        ]);
+        return new JsonResponse([
+            'data' => $created
         ]);
     }
 
@@ -43,8 +56,19 @@ class BookingController extends Controller
      */
     public function update(UpdateBookingRequest $request, Booking $booking)
     {
-        return new \Illuminate\Http\JsonResponse([
-            'data' => 'updated'
+        $updated = $booking->update([
+            'check_in_date' => $request->check_in_date ?? $booking->check_in_date,
+            'check_out_date' => $request->check_out_date ?? $booking->check_out_date,
+        ]);
+        if(!$updated){
+            return new JsonResponse([
+                'errors' => [
+                    'Failed to update model.'
+                ]
+            ], status: 400);
+        }
+        return new JsonResponse([
+            'data' => $updated
         ]);
     }
 
@@ -53,8 +77,14 @@ class BookingController extends Controller
      */
     public function destroy(Booking $booking)
     {
-        return new \Illuminate\Http\JsonResponse([
-            'data' => 'deleted'
+        $deleted = $booking->forceDelete();
+        if(!$deleted){
+            return new JsonResponse([
+                'errors' => 'Could not delete resource'
+            ], 400);
+        }
+        return new JsonResponse([
+            'data' => 'successfully deleted'
         ]);
     }
 }
