@@ -2,13 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Http\Resources\ContractResource;
 use App\Models\Contract;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ContractRepository
+class ContractRepository extends BaseRepository
 {
     public function create(array $attributes)
     {
@@ -26,7 +23,7 @@ class ContractRepository
         });
     }
 
-    public function update(Contract $contract, array $attributes)
+    public function update($contract, array $attributes)
     {
         return DB::transaction(function () use ($contract, $attributes){
             $updated = $contract->update([
@@ -41,7 +38,7 @@ class ContractRepository
         });
     }
 
-    public function forceDelete(Contract $contract)
+    public function forceDelete($contract)
     {
         return DB::transaction(function () use ($contract){
             $deleted = $contract->forceDelete();
