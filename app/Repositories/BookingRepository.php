@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Booking;
 use App\Models\Contract;
 use Illuminate\Support\Facades\DB;
 
@@ -11,7 +12,7 @@ class BookingRepository extends BaseRepository
     public function create(array $attributes)
     {
         return DB::transaction(function () use ($attributes){
-            return Contract::query()->create([
+            return Booking::query()->create([
                 'check_in_date'=> data_get($attributes,'check_in_date',),
                 'check_out_date' => data_get($attributes,'check_out_date',),
                 'accommodation_id'=> data_get($attributes,'accommodation_id',),

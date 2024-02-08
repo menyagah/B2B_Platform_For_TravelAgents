@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
 use App\Http\Resources\BookingResource;
+use App\Http\Resources\ContractResource;
 use App\Models\Accommodation;
 use App\Models\Booking;
 use App\Models\Contract;
+use App\Repositories\BookingRepository;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -32,22 +34,20 @@ class BookingController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
+     * @param BookingRepository $repository
      * @return BookingResource
      */
-    public function store(Request $request)
+    public function store(Request $request, BookingRepository $repository)
     {
-        $created = DB::transaction(function () use ($request){
-            $created = Booking::query()->create([
-                'check_in_date' => $request->check_in_date,
-                'check_out_date' => $request->check_out_date,
-                'accommodation_id'=> $request->accommodation_id,
-                'user_id'=> $request->user_id,
-                'contract_id'=>$request->contract_id,
-                'contract_rate' => $request->contract_rate,
-                'standard_rack_rate'=> $request->standard_rack_rate
-            ]);
-            return $created;
-        });
+        $created = $repository->create($request->only([
+            'check_in_date',
+            'check_out_date',
+            'accommodation_id',
+            'user_id',
+            'contract_id',
+            'contract_rate',
+            'standard_rack_rate'
+        ]));
 
         return new BookingResource($created);
     }
@@ -68,21 +68,16 @@ class BookingController extends Controller
      *
      * @param Request $request
      * @param Booking $booking
-     * @return BookingResource | JsonResponse
+     * @param BookingRepository $repository
+     * @return BookingResource
      */
-    public function update(Request $request, Booking $booking)
+    public function update(Request $request, Booking $booking, BookingRepository $repository)
     {
-        $updated = $booking->update([
-            'check_in_date' => $request->check_in_date ?? $booking->check_in_date,
-            'check_out_date' => $request->check_out_date ?? $booking->check_out_date,
-        ]);
-        if(!$updated){
-            return new JsonResponse([
-                'errors' => [
-                    'Failed to update model.'
-                ]
-            ], status: 400);
-        }
+        $updated = $repository->update($booking, $request->only([
+            'check_in_date',
+            'check_out_date'
+        ]));
+
         return new BookingResource($updated);
     }
 
@@ -90,16 +85,12 @@ class BookingController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Booking $booking
+     * @param BookingRepository $repository
      * @return JsonResponse
      */
-    public function destroy(Booking $booking)
+    public function destroy(Booking $booking, BookingRepository $repository)
     {
-        $deleted = $booking->forceDelete();
-        if(!$deleted){
-            return new JsonResponse([
-                'errors' => 'Could not delete resource'
-            ], 400);
-        }
+        $deleted = $repository->forceDelete($booking);
         return new JsonResponse([
             'data' => 'successfully deleted'
         ]);
