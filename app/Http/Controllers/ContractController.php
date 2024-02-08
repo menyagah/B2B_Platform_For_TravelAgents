@@ -82,7 +82,7 @@ class ContractController extends Controller
      */
     public function destroy(Contract $contract, ContractRepository $repository)
     {
-        $deleted = $repository->forceDelete($contract);
+        $repository->forceDelete($contract);
         return new JsonResponse([
             'data' => 'successfully deleted'
         ]);

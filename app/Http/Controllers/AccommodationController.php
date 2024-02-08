@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAccommodationRequest;
 use App\Http\Requests\UpdateAccomodationRequest;
 use App\Http\Resources\AccommodationResource;
+use App\Http\Resources\BookingResource;
 use App\Models\Accommodation;
 use App\Models\Contract;
+use App\Repositories\AccommodationRepository;
+use App\Repositories\BookingRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -29,15 +32,16 @@ class AccommodationController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
+     * @param BookingRepository $repository
      * @return AccommodationResource
      */
-    public function store(Request $request)
+    public function store(Request $request, BookingRepository $repository)
     {
-        $created = Accommodation::query()->create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'standard_rack_rate' => $request->standard_rack_rate
-        ]);
+        $created = $repository->create($request->only([
+            'title' ,
+            'description',
+            'standard_rack_rate'
+        ]));
         return new AccommodationResource($created);
     }
 
@@ -57,22 +61,17 @@ class AccommodationController extends Controller
      *
      * @param Request $request
      * @param Accommodation $accommodation
+     * @param AccommodationRepository $repository
      * @return AccommodationResource | JsonResponse
      */
-    public function update(Request $request, Accommodation $accommodation)
+    public function update(Request $request, Accommodation $accommodation, AccommodationRepository $repository)
     {
-        $updated = $accommodation->update([
-            'title' => $request->title ?? $accommodation->title,
-            'description' => $request->description ?? $accommodation->description,
-            'standard_rack_rate' => $request->standard_rack_rate ?? $accommodation->standard_rack_rate
-        ]);
-        if(!$updated){
-            return new JsonResponse([
-                'errors' => [
-                    'Failed to update model.'
-                ]
-            ], status: 400);
-        }
+        $updated = $repository->update($accommodation, $request->only([
+            'title',
+            'description',
+            'standard_rack_rate'
+        ]));
+
         return new AccommodationResource($updated);
     }
 
@@ -80,16 +79,12 @@ class AccommodationController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Accommodation $accommodation
+     * @param AccommodationRepository $repository
      * @return JsonResponse
      */
-    public function destroy(Accommodation $accommodation)
+    public function destroy(Accommodation $accommodation, AccommodationRepository $repository)
     {
-        $deleted = $accommodation->forceDelete();
-        if(!$deleted){
-            return new JsonResponse([
-                'errors' => 'Could not delete resource'
-            ], 400);
-        }
+        $repository->forceDelete($accommodation);
         return new JsonResponse([
             'data' => 'successfully deleted'
         ]);

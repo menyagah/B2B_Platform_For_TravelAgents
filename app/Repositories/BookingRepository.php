@@ -24,24 +24,24 @@ class BookingRepository extends BaseRepository
         });
     }
 
-    public function update($model, array $attributes)
+    public function update($booking, array $attributes)
     {
-        return DB::transaction(function () use ($model, $attributes){
-            $updated = $model->update([
-                'check_in_date' => data_get($attributes,'check_in_date', $model->check_in_date),
-                'check_out_date' => data_get($attributes,'check_out_date', $model->check_out_date),
+        return DB::transaction(function () use ($booking, $attributes){
+            $updated = $booking->update([
+                'check_in_date' => data_get($attributes,'check_in_date', $booking->check_in_date),
+                'check_out_date' => data_get($attributes,'check_out_date', $booking->check_out_date),
             ]);
             if(!$updated){
                 throw new \Exception('Failed to update contract');
             }
-            return $model;
+            return $booking;
         });
     }
 
-    public function forceDelete($model)
+    public function forceDelete($booking)
     {
-        return DB::transaction(function () use ($model){
-            $deleted = $model->forceDelete();
+        return DB::transaction(function () use ($booking){
+            $deleted = $booking->forceDelete();
             if(!$deleted){
                 throw new \Exception('cannot delete post');
             }
