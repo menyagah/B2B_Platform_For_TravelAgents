@@ -1,19 +1,17 @@
 <?php
 
-namespace App\Events;
+namespace App\Events\Models\Users;
 
-use Illuminate\Broadcasting\Channel;
+use App\Models\User;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
 class UserCreated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    protected $user;
+    protected User $user;
     /**
      * Create a new event instance.
      */
