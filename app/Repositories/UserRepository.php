@@ -2,9 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Events\UserCreated;
+use App\Events\Models\Users\UserCreated;
+use App\Events\Models\Users\UserDeleted;
+use App\Events\Models\Users\UserUpdated;
 use App\Exceptions\GeneralException;
-use App\Models\Booking;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -41,9 +42,8 @@ class UserRepository extends BaseRepository
                 'name' => data_get($attributes,'name', $user->name),
                 'email' => data_get($attributes,'email', $user->email),
             ]);
-            if(!$updated){
-                throw new \Exception('Failed to update contract');
-            }
+            throw_if(!$updated, GeneralException::class, 'Failed to update user.');
+            event(new UserUpdated($user));
             return $user;
         });
     }
@@ -56,9 +56,8 @@ class UserRepository extends BaseRepository
     {
         return DB::transaction(function () use ($user){
             $deleted = $user->forceDelete();
-            if(!$deleted){
-                throw new \Exception('cannot delete post');
-            }
+            throw_if(!$deleted, GeneralException::class, 'Cannot delete user.');
+            event(new UserDeleted($deleted));
             return $deleted;
         });
     }
