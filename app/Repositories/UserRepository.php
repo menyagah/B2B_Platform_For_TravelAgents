@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Events\UserCreated;
+use App\Exceptions\GeneralException;
 use App\Models\Booking;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -16,11 +18,14 @@ class UserRepository extends BaseRepository
     public function create(array $attributes)
     {
         return DB::transaction(function () use ($attributes){
-            return User::query()->create([
+            $created = User::query()->create([
                 'name'=> data_get($attributes,'name',),
                 'email' => data_get($attributes,'email',),
                 'password'=> data_get($attributes,'password',),
             ]);
+            throw_if(!$created, GeneralException::class, 'Failed to create model user.');
+            event(new UserCreated($created));
+            return $created;
         });
     }
 
