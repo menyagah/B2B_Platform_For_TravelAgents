@@ -20,6 +20,6 @@ class SendWelcomeEmail
      */
     public function handle(object $event): void
     {
-        //
+        dump("Email Sent.");
     }
 }
