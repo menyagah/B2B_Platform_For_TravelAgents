@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use App\Events\Models\Users\UserCreated;
 use App\Http\Resources\UserResource;
-use App\Models\Accommodation;
-use App\Models\Booking;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
-use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -23,6 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        event(new UserCreated(User::factory()->make()));
         $users = User::query()->get();
         return UserResource::collection($users);
     }
