@@ -3,7 +3,7 @@
 
 Congratulations on joining the x-team. We are pleased to have you onboard!
 
-Thanks.
+Thanks.<br>
 {{ config('app.name') }}
 <x-mail::button :url="''">
     click Here for Onboarding
