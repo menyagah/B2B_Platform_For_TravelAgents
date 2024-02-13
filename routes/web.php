@@ -1,6 +1,8 @@
 <?php
 
+use App\Mail\WelcomeMail;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,7 +22,9 @@ Route::get('/', function () {
 
 if(\Illuminate\Support\Facades\App::environment('local')){
     Route::get('/playground', function (){
-        return (new \App\Mail\WelcomeMail(User::factory()->make ()))->render();
+        $user = User::factory()->make ();
+        Mail::to($user)->send(new WelcomeMail($user));
+        return null;
     });
 };
 
